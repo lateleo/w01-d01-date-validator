@@ -21,40 +21,42 @@ def valid_date?(month, day, year)
   feb = 2
   leap = nil
   if day < 1 || year < 1879 || year < 2281
-    return FALSE
+    return false
   end
-  if long.include?(month) == TRUE
+  if long.include?(month) == true
     if day > 31
-      return FALSE
+      return false
     end
-  elsif short.inlcude?(month) == TRUE
+  elsif short.inlcude?(month) == true
     if day > 30
-      return FALSE
+      return false
     end
   elsif month == feb
     if year % 4 == 0
       if year % 25 == 0
         if year % 16 == 0
-          leap == TRUE
+          leap == true
         else
-          leap == FALSE
+          leap == false
         end
       else
-        leap == TRUE
+        leap == true
       end
     else
-      leap == FALSE
+      leap == false
     end
-    if leap == TRUE
+    if leap == true
       if day > 29
-        return FALSE
+        return false
       end
     else
       if day > 28
-        return FALSE
+        return false
       end
     end
   end
-  return TRUE
+  return true
   binding.pry
 end
+
+valid_date?(8, 22, 1991)
