@@ -13,50 +13,47 @@
 # + Only worry about integer inputs (no floats, strings, etc.)
 #
 # This method should, in its final form, not do any output.
-require 'pry'
-
 def valid_date?(month, day, year)
-  long = [1, 3, 5, 7, 8, 10, 12]
-  short = [4, 6, 9, 11]
+  long = [1,3,5,7,8,10,12]
+  short = [4,6,9,11]
   feb = 2
   leap = nil
-  if day < 1 || year < 1879 || year < 2281
+  if day < 1 || year < 1880 || year > 2280
     return false
   end
-  if long.include?(month) == true
+  if long.include?(month)
     if day > 31
       return false
     end
-  elsif short.inlcude?(month) == true
+  elsif short.include?(month)
     if day > 30
       return false
     end
   elsif month == feb
     if year % 4 == 0
-      if year % 25 == 0
-        if year % 16 == 0
-          leap == true
+      if year % 100 == 0
+        if year % 400 == 0
+          leap = true
         else
-          leap == false
+          leap = false
         end
       else
-        leap == true
+        leap = true
       end
     else
-      leap == false
+      leap = false
     end
     if leap == true
       if day > 29
         return false
       end
-    else
+    elsif leap == false
       if day > 28
         return false
       end
+    else
+      return false
     end
   end
   return true
-  binding.pry
 end
-
-valid_date?(8, 22, 1991)
