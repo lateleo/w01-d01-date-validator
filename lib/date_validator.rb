@@ -21,39 +21,19 @@ def valid_date?(month, day, year)
   if day < 1 || year < 1880 || year > 2280
     return false
   end
-  if long.include?(month)
-    if day > 31
+  if (long.include?(month) && day > 31) || (short.include?(month) && day > 30)
       return false
-    end
-  elsif short.include?(month)
-    if day > 30
-      return false
-    end
   elsif month == feb
-    if year % 4 == 0
-      if year % 100 == 0
-        if year % 400 == 0
-          leap = true
-        else
-          leap = false
-        end
-      else
-        leap = true
-      end
+    if (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+      leap = true
     else
       leap = false
     end
-    if leap == true
-      if day > 29
-        return false
-      end
-    elsif leap == false
-      if day > 28
-        return false
-      end
-    else
+    if (leap == true && day > 29) || (leap == false && day > 28)
       return false
     end
+  else
+    return false
   end
   return true
 end
